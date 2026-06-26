@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bói Bài Tarot Huyền Bí | KTHDIGI Pro</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+</head>
+<body>
+    <div id="mystical-bg"></div>
+    <div id="candle-light"></div>
+    <div id="particles"></div>
+
+    <!-- Environment Elements -->
+    <img src="data/mystical_candle_1782466315952.png" id="env-candle-left" class="env-element" alt="Candle">
+    <img src="data/mystical_candle_1782466315952.png" id="env-candle-right" class="env-element" alt="Candle">
+    <img src="data/mystical_crystal_1782466327428.png" id="env-crystal" class="env-element" alt="Crystal">
+    <img src="data/mystical_moon_1782466337858.png" id="env-moon" class="env-element" alt="Moon">
+
+    <!-- Audio Elements -->
+    <!-- The user can place their preferred background music here -->
+    <audio id="audio-bg" loop src="data/bg.mp3"></audio>
+
+    <!-- Audio Toggle -->
+    <button id="audio-toggle" class="audio-btn" onclick="toggleAudio()" title="Bật/Tắt Âm Thanh">
+        <i class="fa-solid fa-volume-xmark"></i>
+    </button>
+
+    <header>
+        <h1 class="glow-text">Trải Bài Tarot</h1>
+        <p class="subtitle" id="header-subtitle">Lắng nghe thông điệp từ vũ trụ dành riêng cho bạn</p>
+    </header>
+
+    <main class="container">
+        <!-- Step 1: Mode & Topic Selection -->
+        <div id="setup-interface" class="glass-panel">
+            <h2>Thiết Lập Trải Bài</h2>
+            
+            <div class="form-group">
+                <label for="mode-select"><i class="fa-solid fa-layer-group"></i> Chọn Chế Độ</label>
+                <select id="mode-select" class="custom-select">
+                    <option value="1">Trải 1 Lá (Câu trả lời trực tiếp / Hàng ngày)</option>
+                    <option value="3">Trải 3 Lá (Quá Khứ - Hiện Tại - Tương Lai)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="topic-select"><i class="fa-solid fa-star"></i> Chọn Chủ Đề</label>
+                <select id="topic-select" class="custom-select" onchange="onTopicChange()"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="question-select"><i class="fa-solid fa-circle-question"></i> Câu Hỏi Chi Tiết</label>
+                <select id="question-select" class="custom-select"></select>
+            </div>
+
+            <button class="btn primary mt-4" onclick="proceedToDraw()">
+                <span class="btn-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                <span>Bắt Đầu Trải Bài</span>
+            </button>
+        </div>
+
+        <!-- Step 2: Draw Interface (Arc Spread) -->
+        <div id="draw-interface" class="hidden">
+            <div class="draw-header">
+                <h3 class="glow-text-small" id="selected-question-display">Câu hỏi của bạn ở đây...</h3>
+                <p id="instruction" class="instruction-text">Hãy xáo bài và chọn <span id="cards-to-draw">0</span> lá bài mà bạn cảm thấy kết nối nhất.</p>
+                <button id="shuffle-btn" class="btn secondary" onclick="shuffleCardsAnimation()">
+                    <i class="fa-solid fa-shuffle"></i> Xáo Bài
+                </button>
+            </div>
+
+            <!-- Arc Spread Area -->
+            <div id="arc-container" class="arc-container">
+                <!-- 78 Cards will be generated here -->
+            </div>
+
+            <div id="spread-slots" class="spread-slots">
+                <!-- Selected cards will fly here -->
+            </div>
+
+            <div class="action-center">
+                <button id="reveal-btn" class="btn primary hidden" onclick="revealCards()">Giải Mã Thông Điệp</button>
+                <button id="reset-btn" class="btn ghost hidden" onclick="resetApp()">Làm Lại</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Reading Result -->
+        <div id="result-interface" class="hidden">
+            <h2 class="glow-text">Thông Điệp Của Bạn</h2>
+            <h3 class="result-question" id="result-question-display"></h3>
+            
+            <div id="reading-cards" class="reading-cards">
+                <!-- Cards and specific meanings will be rendered here -->
+            </div>
+            
+            <div class="actions mt-4" style="text-align: center;">
+                <button class="btn primary" onclick="resetApp()">Rút Lại Quẻ Mới</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load the massive data file -->
+    <script src="boitarot-meanings-var.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
